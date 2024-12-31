@@ -28,7 +28,7 @@ Hoe.plugin :rubygems
 # - +issues+ and +tickets+ for +bug_tracker_uri+
 
 module Hoe::Halostatue
-  VERSION = "1.0.0"
+  VERSION = "1.0.1"
 
   def initialize_halostatue # :nodoc:
     Hoe::URLS_TO_META_MAP.update Hoe::Halostatue::ParseUrls::URLS_TO_META_MAP
