@@ -1,0 +1,46 @@
+---
+exclude: !ruby/regexp '/
+  # Anything that ends with .tmp, .swp, or .gemspec
+  \.(?:gemspec | tmp | swp)$
+  |
+  # Any of the following project dotfiles.
+  ^\.(?:
+    DS_Store |
+    autotest |
+    byebug_history |
+    gemtest |
+    gitattributes |
+    gitignore |
+    hoerc |
+    minitest\.rb |
+    simplecov-prelude\.rb |
+    workenv |
+    (?:
+      appveyor |
+      coveralls |
+      fasterer |
+      pullreview |
+      rubocop.* |
+      standard.* |
+      travis |
+      unused
+    )\.yml
+  )$
+  |
+  # Any of the folloing project dot directories.
+  ^\.(?:
+    bundle |
+    github |
+    git |
+    hg |
+    idea |
+    svn |
+    vagrant
+  )\/
+  |
+  [gG]emfile(?:\.lock)?
+  |
+  (?i:TAGS)$
+  |
+  Vagrantfile$
+/x'
