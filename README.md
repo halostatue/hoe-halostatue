@@ -1,39 +1,153 @@
-# Hoe - Halostatue Meta-Plugin
+# Hoe::Halostatue Meta-Plugin
+
+- home :: <https://github.com/halostatue/halostatue-data/>
+- issues :: <https://github.com/halostatue/halostatue-data/issues>
+- code :: <https://github.com/halostatue/halostatue-data/>
+- changelog ::
+  <https://github.com/halostatue/halostatue-data/blob/main/CHANGELOG.md>
 
 ## Description
 
-Hoe::Halostatue is a [Hoe][hoe] meta-plugin that ensures that the following
-plugins are installed and enabled for your project:
-
-- [`hoe-doofus`][hoe-doofus]
-- [`hoe-gemspec2`][hoe-gemspec2]
-- [`hoe-git2`][hoe-git2]
-- [`hoe-markdown`][hoe-markdown]
-- [`hoe-rubygems`][hoe-rubygems]
-
-It also provides an improved implementation for `Hoe#parse_urls` that works
-better with a Markdown README. It allows either `*` or `-` as list leaders for
-the README. It also allows the URLs to be blank. Double colons are still
-required for pattern matching.
-
-In addition to the four letter aliases in `Hoe::URLS_TO_META_MAP` (`bugs`,
-`clog`, `doco`, `docs`, `home`, `code`, `wiki`, and `mail`), this adds:
-
-- `changelog`, `changes`, and `history` as aliases for `changelog_uri`
-- `documentation` for `documentation_uri`
-- `issues` and `tickets` for `bug_tracker_uri`
+Hoe::Halostatue is a [Hoe][hoe] meta-plugin that provides improved support for
+Markdown README files, provides features from other plugins, and enables
+improved support for [trusted publishing][tp].
 
 ## Examples
 
 ```ruby
-# in your Rakefile
+# In your Rakefile
 Hoe.plugin :halostatue
+
+Hoe.spec "myproj" do
+  self.checklist = nil if ENV["rubygems_release_gem"] == "true"
+  self.git_tag_enabled = ENV["rubygems_release_gem"] != "true"
+  # ...
+end
 ```
+
+If this plugin cannot see that it is in a `.git` directory, `hoe-git2` derived
+features will be deactivated.
+
+## Features
+
+Hoe::Halostatue automatically enables Hoe plugins
+[`hoe-gemspec2`][hoe-gemspec2], [`hoe-markdown`][hoe-markdown], and
+[`hoe-rubygems`][hoe-rubygems].
+
+With version 2, the functionality of [`hoe-doofus`][hoe-doofus] and
+[`hoe-git2`][hoe-git2] have been incorporated into Hoe::Halostatue to improve
+automated release support.
+
+### Improved Metadata URL Parsing
+
+Hoe::Halostatue provides an improved implementation for `Hoe#parse_urls`. The
+expected format is more or less the same, but accepts any left-aligned Markdown
+list (beginning with `-`, `+`, or `*`) and handles lists that wrap lines (such
+as the `changelog` entry at the top of this file).
+
+It is more strict than the default `Hoe#parse_urls` because it only accepts the
+known aliases for the various RubyGems URI meta keys.
+
+| RubyGems URI Meta Key | Alias                                     |
+| --------------------- | ----------------------------------------- |
+| `documentation_uri`   | `doco`, `docs`, `documentation`           |
+| `bug_tracker_uri`     | `bugs`, `issues`, `tickets`               |
+| `changelog_uri`       | `clog`, `changelog`, `changes`, `history` |
+| `homepage_uri`        | `home`, `homepage`                        |
+| `wiki_uri`            | `wiki`                                    |
+| `mailing_list_uri`    | `mail`                                    |
+
+### Automated Release Support
+
+Certain features offered by Hoe plugins supported are useful for manual
+releases, but work against automated releases (see [trusted publishing][tp]).
+
+- `hoe-doofus` has been replaced with an internal implementation that disables
+  the display if the release checklist is unset or empty.
+
+- `hoe-git2` has been incorporated into Hoe::Halostatue, but the pieces which
+  affect release can be disabled through configuration.
+
+In the example below, the release checklist and Git tag creation will be
+disabled if `$rubygems_release_gem` is `true`.
+
+```ruby
+Hoe.plugin :halostatue
+
+Hoe.spec "myproj" do
+  self.checklist = nil if ENV["rubygems_release_gem"] == "true"
+  self.git_tag_enabled = ENV["rubygems_release_gem"] != "true"
+  # ...
+end
+```
+
+### Release Checklist (from `hoe-doofus`)
+
+The release checklist feature has been incorporated from `hoe-doofus`.
+
+> A Hoe plugin that helps me (and you, maybe?) keep from messing up gem
+> releases. It shows a configurable checklist when `rake release` is run, and
+> provides a chance to abort if anything's been forgotten.
+
+The current checklist can be seen by running `rake checklist` and the checklist
+may be set by using `self.checklist << "new item"` in your spec. If the
+checklist is `nil` or empty, the checklist prompt will not be displayed.
+
+```ruby
+Hoe.plugin :halostatue
+
+Hoe.spec "myproj" do
+  if ENV["rubygems_release_gem"] == "true"
+    self.checklist = nil
+  else
+    checklist << "Given the release a snappy name"
+  end
+end
+```
+
+### Git Integration Tasks (from `hoe-git2`)
+
+Support for generating the CHANGELOG from the git commit messages has not been
+incorporated into Hoe::Halostatue.
+
+#### Generating the Manifest
+
+The `Manifest.txt` required by Hoe can be generated with `rake git:manifest`.
+This uses `git ls-files`, respecting the Hoe manifest sort order and excludes.
+
+#### Tagging and Sanity Checking a Release
+
+A release will be aborted if your Git index is dirty or there are untracked
+files present. After the release is published, a Git tag will be created and
+pushed to your repo remotes. Both `$PRERELEASE` and `$PRE` tags are supported,
+with `$PRERELEASE` taking precedence over `$PRE`, just as with Hoe itself.
+
+In the following example with no other configuration, a `v1.0.0.beta.1` tag will
+be created and pushed to the `origin` remote.
+
+```console
+$ rake release VERSION=1.0.0 PRERELEASE=beta.1
+```
+
+The tag prefix can be with `self.git_release_tag_prefix`, which defaults to `v`.
+
+The created tag can be pushed to different remotes with `self.git_remotes`,
+which defaults to `["origin"]`.
+
+### Trusted Release
+
+If `spec.trusted_release` is set to `true` changes will be made to the `release`
+workflow. This flag is intended to be used only with a [trusted publishing][tp]
+workflow. It will bypass certain protections offered by Hoe and Hoe::Halostatue:
+
+- The version discovered by Hoe will be trusted as correct, removing the need
+  for specifying the version.
+
+- The release checklist will be skipped.
 
 ## Dependencies
 
-Hoe and Git, obviously. I wouldn't be surprised if things don't quite work for
-git < 2.37.
+Hoe and Git 2.37 or later.
 
 ## Installation
 
@@ -41,30 +155,10 @@ git < 2.37.
 $ gem install hoe-halostatue
 ```
 
-## License
-
-Copyright 2024 Austin Ziegler (halostatue@gmail.com)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the 'Software'), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 [hoe-doofus]: https://github.com/jbarnette/hoe-doofus
 [hoe-gemspec2]: https://github.com/raggi/hoe-gemspec2
 [hoe-git2]: https://github.com/halostatue/hoe-git2
 [hoe-markdown]: https://github.com/flavorjones/hoe-markdown
 [hoe-rubygems]: https://github.com/jbarnette/hoe-rubygems
 [hoe]: https://github.com/seattlerb/hoe
+[tp]: https://guides.rubygems.org/trusted-publishing/

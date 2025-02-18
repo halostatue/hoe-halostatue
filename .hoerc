@@ -34,7 +34,8 @@ exclude: !ruby/regexp '/
     | svn
     | vagrant
   )\/
-  | [gG]emfile(?:\.lock)?
+  | [gG]emfile(?:\.lock)?$
+  | [Aa]ppraisals$
   | (?i:TAGS)$
   | Vagrantfile$
 /x'

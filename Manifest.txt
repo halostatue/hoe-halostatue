@@ -1,5 +1,10 @@
 CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+CONTRIBUTORS.md
+LICENCE.md
 Manifest.txt
 README.md
 Rakefile
+SECURITY.md
 lib/hoe/halostatue.rb
