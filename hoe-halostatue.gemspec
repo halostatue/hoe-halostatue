@@ -1,29 +1,29 @@
 # -*- encoding: utf-8 -*-
-# stub: hoe-halostatue 1.0.1 ruby lib
+# stub: hoe-halostatue 2.0.0 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "hoe-halostatue".freeze
-  s.version = "1.0.1".freeze
+  s.version = "2.0.0".freeze
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
+  s.metadata = { "bug_tracker_uri" => "https://github.com/halostatue/halostatue-data/issues", "changelog_uri" => "https://github.com/halostatue/halostatue-data/blob/main/CHANGELOG.md", "homepage_uri" => "https://github.com/halostatue/halostatue-data/", "rubygems_mfa_required" => "true", "source_code_uri" => "https://github.com/halostatue/halostatue-data/" } if s.respond_to? :metadata=
   s.require_paths = ["lib".freeze]
   s.authors = ["Austin Ziegler".freeze]
-  s.date = "2024-12-31"
-  s.description = "Hoe::Halostatue is a [Hoe][hoe] meta-plugin that ensures that the following\nplugins are installed and enabled for your project:\n\n- [`hoe-doofus`][hoe-doofus]\n- [`hoe-gemspec2`][hoe-gemspec2]\n- [`hoe-git2`][hoe-git2]\n- [`hoe-markdown`][hoe-markdown]\n- [`hoe-rubygems`][hoe-rubygems]\n\nIt also provides an improved implementation for `Hoe#parse_urls` that works\nbetter with a Markdown README. It allows either `*` or `-` as list leaders for\nthe README. It also allows the URLs to be blank. Double colons are still\nrequired for pattern matching.\n\nIn addition to the four letter aliases in `Hoe::URLS_TO_META_MAP` (`bugs`,\n`clog`, `doco`, `docs`, `home`, `code`, `wiki`, and `mail`), this adds:\n\n- `changelog`, `changes`, and `history` as aliases for `changelog_uri`\n- `documentation` for `documentation_uri`\n- `issues` and `tickets` for `bug_tracker_uri`".freeze
+  s.date = "2025-02-19"
+  s.description = "Hoe::Halostatue is a Hoe meta-plugin that provides improved support for\nMarkdown README files, provides features from other plugins, and enables\nimproved support for trusted publishing.".freeze
   s.email = ["halostatue@gmail.com".freeze]
-  s.extra_rdoc_files = ["CHANGELOG.md".freeze, "Manifest.txt".freeze, "README.md".freeze]
-  s.files = ["CHANGELOG.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "Rakefile".freeze, "lib/hoe/halostatue.rb".freeze]
+  s.extra_rdoc_files = ["CHANGELOG.md".freeze, "CODE_OF_CONDUCT.md".freeze, "CONTRIBUTING.md".freeze, "CONTRIBUTORS.md".freeze, "LICENCE.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "SECURITY.md".freeze]
+  s.files = ["CHANGELOG.md".freeze, "CODE_OF_CONDUCT.md".freeze, "CONTRIBUTING.md".freeze, "CONTRIBUTORS.md".freeze, "LICENCE.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "Rakefile".freeze, "SECURITY.md".freeze, "lib/hoe/halostatue.rb".freeze]
+  s.homepage = "https://github.com/halostatue/halostatue-data/".freeze
   s.licenses = ["MIT".freeze]
   s.rdoc_options = ["--main".freeze, "README.md".freeze]
-  s.rubygems_version = "3.5.23".freeze
-  s.summary = "Hoe::Halostatue is a [Hoe][hoe] meta-plugin that ensures that the following plugins are installed and enabled for your project:  - [`hoe-doofus`][hoe-doofus] - [`hoe-gemspec2`][hoe-gemspec2] - [`hoe-git2`][hoe-git2] - [`hoe-markdown`][hoe-markdown] - [`hoe-rubygems`][hoe-rubygems]  It also provides an improved implementation for `Hoe#parse_urls` that works better with a Markdown README".freeze
+  s.rubygems_version = "3.5.22".freeze
+  s.summary = "Hoe::Halostatue is a Hoe meta-plugin that provides improved support for Markdown README files, provides features from other plugins, and enables improved support for trusted publishing.".freeze
 
   s.specification_version = 4
 
   s.add_runtime_dependency(%q<hoe>.freeze, [">= 3.0".freeze, "< 5".freeze])
-  s.add_runtime_dependency(%q<hoe-doofus>.freeze, ["~> 1.0".freeze])
   s.add_runtime_dependency(%q<hoe-gemspec2>.freeze, ["~> 1.1".freeze])
-  s.add_runtime_dependency(%q<hoe-git2>.freeze, ["~> 1.8".freeze])
   s.add_runtime_dependency(%q<hoe-markdown>.freeze, ["~> 1.6".freeze])
   s.add_runtime_dependency(%q<hoe-rubygems>.freeze, ["~> 1.0".freeze])
   s.add_development_dependency(%q<standard>.freeze, ["~> 1.0".freeze])
