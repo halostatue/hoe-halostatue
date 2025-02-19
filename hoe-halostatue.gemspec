@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "Hoe::Halostatue is a Hoe meta-plugin that provides improved support for\nMarkdown README files, provides features from other plugins, and enables\nimproved support for trusted publishing.".freeze
   s.email = ["halostatue@gmail.com".freeze]
   s.extra_rdoc_files = ["CHANGELOG.md".freeze, "CODE_OF_CONDUCT.md".freeze, "CONTRIBUTING.md".freeze, "CONTRIBUTORS.md".freeze, "LICENCE.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "SECURITY.md".freeze]
-  s.files = ["CHANGELOG.md".freeze, "CODE_OF_CONDUCT.md".freeze, "CONTRIBUTING.md".freeze, "CONTRIBUTORS.md".freeze, "LICENCE.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "Rakefile".freeze, "SECURITY.md".freeze, "lib/hoe/halostatue.rb".freeze]
+  s.files = ["CHANGELOG.md".freeze, "CODE_OF_CONDUCT.md".freeze, "CONTRIBUTING.md".freeze, "CONTRIBUTORS.md".freeze, "LICENCE.md".freeze, "Manifest.txt".freeze, "README.md".freeze, "Rakefile".freeze, "SECURITY.md".freeze, "lib/hoe/halostatue.rb".freeze, "lib/hoe/halostatue/version.rb".freeze]
   s.homepage = "https://github.com/halostatue/halostatue-data/".freeze
   s.licenses = ["MIT".freeze]
   s.rdoc_options = ["--main".freeze, "README.md".freeze]
