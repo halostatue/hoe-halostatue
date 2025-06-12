@@ -1,5 +1,9 @@
 # hoe-halostatue Changelog
 
+## 2.0.1 / 2025-06-12
+
+- Update minimum version of hoe-gemspec2.
+
 ## 2.0.0 / 2025-02-19
 
 - Directly incorporate the functionality of `hoe-doofus` and `hoe-git2` into
