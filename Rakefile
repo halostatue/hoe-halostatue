@@ -20,7 +20,7 @@ Hoe.spec "hoe-halostatue" do
   }
 
   extra_deps << ["hoe", ">= 3.0", "< 5"]
-  extra_deps << ["hoe-gemspec2", "~> 1.1"]
+  extra_deps << ["hoe-gemspec2", "~> 1.4"]
   extra_deps << ["hoe-markdown", "~> 1.6"]
   extra_deps << ["hoe-rubygems", "~> 1.0"]
 
