@@ -145,6 +145,35 @@ workflow. It will bypass certain protections offered by Hoe and Hoe::Halostatue:
 
 - The release checklist will be skipped.
 
+### Strict Warnings
+
+Warnings can be made strict (an exception will be thrown) for tests by adding
+the following to your test or spec helper file (`test/minitest_helper.rb` or
+`spec/rspec_helper.rb` or similar):
+
+```ruby
+require "hoe/halostatue/strict_warnings"
+
+# Optional but recommended to avoid getting warnings outside of your code.
+Hoe::Halostatue::StrictWarnings.project_root = File.expand_path("../", __dir__)
+
+# Optional regex patterns to suppress. Suppressed messages will not be printed
+# to standard error. The patterns provided will be converted to a single regex
+# on assignment.
+Hoe::Halostatue::StrictWarnings.suppressed = [
+  /circular require considered harmful/
+]
+
+# Optional regex patterns to allow. Allowed messages will be printed to
+# standard error, but will not raise an exception. The patterns provided will
+# be converted to a single regex on assignment.
+Hoe::Halostatue::StrictWarnings.allowed = [
+  /oval require considered harmful/
+]
+```
+
+This is based on [RailsStrictWarnings][rsw].
+
 ## Dependencies
 
 Hoe and Git 2.37 or later.
@@ -161,4 +190,5 @@ $ gem install hoe-halostatue
 [hoe-markdown]: https://github.com/flavorjones/hoe-markdown
 [hoe-rubygems]: https://github.com/jbarnette/hoe-rubygems
 [hoe]: https://github.com/seattlerb/hoe
+[rsw]: https://github.com/rails/rails/blob/66732971111a62e5940268e1daf7d413c72a234f/tools/strict_warnings.rb
 [tp]: https://guides.rubygems.org/trusted-publishing/

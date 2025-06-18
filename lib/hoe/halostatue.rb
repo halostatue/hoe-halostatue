@@ -95,6 +95,8 @@ module Hoe::Halostatue
     self.trusted_release = false
   end
 
+  LINKS = /\[(?<name>.+?)\](?:\(.+?\)|\[.+?\])/
+
   def define_halostatue_tasks # :nodoc:
     desc "Show a reminder for steps I frequently forget"
     task :checklist do
@@ -121,17 +123,12 @@ module Hoe::Halostatue
       end
     end
 
-    task :spec_clean_markdown_text do
-      spec.description =
-        spec.description.gsub(/\[([^\]]+)\]\([^)]+\)/, '\1')
-          .gsub(/\[([^\]]+)\]\[[^\]]+\]/, '\1')
-
-      spec.summary =
-        spec.summary.gsub(/\[([^\]]+)\]\([^)]+\)/, '\1')
-          .gsub(/\[([^\]]+)\]\[[^\]]+\]/, '\1')
+    task :spec_clean_markdown_links do
+      spec.description = spec.description.gsub(LINKS, '\k<name>').gsub(/\r?\n/, " ")
+      spec.summary = spec.summary.gsub(LINKS, '\k<name>').gsub(/\r?\n/, " ")
     end
 
-    task "#{spec.name}.gemspec" => :spec_clean_markdown_text
+    task "#{spec.name}.gemspec" => :spec_clean_markdown_links
 
     if trusted_release
       task :trusted_release do

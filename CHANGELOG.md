@@ -1,5 +1,14 @@
 # hoe-halostatue Changelog
 
+## 2.1.0 / 2025-06-18
+
+- Add support for enabling "strict warnings" similar to
+  [RailsStrictWarnings][rsw].
+
+- Updated several governance documents.
+
+- Improved summary and link description cleaning.
+
 ## 2.0.1 / 2025-06-12
 
 - Update minimum version of hoe-gemspec2.
@@ -23,4 +32,5 @@
 
 - Birthday!
 
+[rsw]: https://github.com/rails/rails/blob/66732971111a62e5940268e1daf7d413c72a234f/tools/strict_warnings.rb
 [trusted]: https://github.com/rubygems/release-gem

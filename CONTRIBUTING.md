@@ -31,5 +31,5 @@ Here's the most direct way to get your work merged into the project:
 - Create a pull request against halostatue/hoe-halostatue and describe what your
   change does and the why you think it should be merged.
 
-[quality commit messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 [hoe]: https://github.com/seattlerb/hoe
+[quality commit messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
