@@ -8,4 +8,5 @@ README.md
 Rakefile
 SECURITY.md
 lib/hoe/halostatue.rb
+lib/hoe/halostatue/strict_warnings.rb
 lib/hoe/halostatue/version.rb

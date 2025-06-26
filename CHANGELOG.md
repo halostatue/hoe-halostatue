@@ -1,5 +1,9 @@
 # hoe-halostatue Changelog
 
+## 2.1.1 / 2025-06-26
+
+- Actually include strict warnings support files.
+
 ## 2.1.0 / 2025-06-18
 
 - Add support for enabling "strict warnings" similar to
