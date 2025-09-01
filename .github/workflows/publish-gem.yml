@@ -21,6 +21,8 @@ permissions: {}
 
 jobs:
   release:
+    name: Publish Gem Version with Trusted Publishing
+
     if: github.repository == 'halostatue/hoe-halostatue' && (github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged))
 
     runs-on: ubuntu-latest
@@ -34,13 +36,30 @@ jobs:
       id-token: write
 
     steps:
+      - name: Harden the runner
+        uses: step-security/harden-runner@ec9f2d5744a09debf3a187a3f4f675c53b671911 # v2.13.0
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: >
+            fulcio.sigstore.dev:443
+            github.com:443
+            index.rubygems.org:443
+            objects.githubusercontent.com:443
+            rekor.sigstore.dev:443
+            release-assets.githubusercontent.com:443
+            rubygems.org:443
+            tuf-repo-cdn.sigstore.dev:443
+
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 #v5.0.0
         with:
           persist-credentials: true
 
       - id: rubygems
         run: |
-          ruby -e 'print "version=", Gem::Specification.load(ARGV[0]).rubygems_version, "\n"' hoe-halostatue.gemspec >> "$GITHUB_OUTPUT"
+          ruby -e \
+            'print "version=", Gem::Specification.load(ARGV[0]).rubygems_version, "\n"' \
+            hoe-halostatue.gemspec >> "${GITHUB_OUTPUT}"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@efbf473cab83af4468e8606cc33eca9281bb213f #v1.256.0
@@ -56,3 +75,9 @@ jobs:
           RUBYGEMS_VERSION: ${{ steps.rubygems.outputs.version }}
 
       - uses: rubygems/release-gem@a25424ba2ba8b387abc8ef40807c2c85b96cbe32 # v1.1.1
+
+      - name: Show the status if release failed
+        if: failure()
+        run: |
+          git status
+          git diff
