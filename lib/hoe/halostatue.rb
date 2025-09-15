@@ -212,7 +212,7 @@ module Hoe::Halostatue
   module ParseUrls # :nodoc:
     def parse_urls text
       keys = Hoe::URLS_TO_META_MAP.keys.join("|")
-      pattern = %r{^[-+*]\s+(#{keys})\s+::\s+[<]?(\w+://[^>\s]+)[>]?}m
+      pattern = %r{^[-+*]\s+(#{keys})\s+::\s+<?(\w+://[^>\s]+)>?}m
 
       text.scan(pattern).to_h
     end
