@@ -126,13 +126,19 @@ In the following example with no other configuration, a `v1.0.0.beta.1` tag will
 be created and pushed to the `origin` remote.
 
 ```console
-$ rake release VERSION=1.0.0 PRERELEASE=beta.1
+$ rake git:tag VERSION=1.0.0 PRERELEASE=beta.1
 ```
 
 The tag prefix can be with `self.git_release_tag_prefix`, which defaults to `v`.
 
 The created tag can be pushed to different remotes with `self.git_remotes`,
 which defaults to `["origin"]`.
+
+The tag will automatically be created when a release is pushed:
+
+```console
+$ rake release VERSION=1.0.0 PRERELEASE=beta.1
+```
 
 ### Trusted Release
 
