@@ -32,6 +32,7 @@ hoe = Hoe.spec "hoe-halostatue" do
   extra_deps << ["hoe-rubygems", "~> 1.0"]
 
   extra_dev_deps << ["standard", "~> 1.0"]
+  extra_dev_deps << ["rdoc", ">= 5.0", "< 8"]
 end
 
 task :version do

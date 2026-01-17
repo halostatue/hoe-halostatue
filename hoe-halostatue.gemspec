@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<hoe-markdown>.freeze, ["~> 1.6".freeze])
   s.add_runtime_dependency(%q<hoe-rubygems>.freeze, ["~> 1.0".freeze])
   s.add_development_dependency(%q<standard>.freeze, ["~> 1.0".freeze])
+  s.add_development_dependency(%q<rdoc>.freeze, [">= 5.0".freeze, "< 8".freeze])
 end
