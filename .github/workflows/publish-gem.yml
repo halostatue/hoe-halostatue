@@ -63,9 +63,9 @@ jobs:
         run: |
           ruby -e \
             'print "version=", Gem::Specification.load(ARGV[0]).rubygems_version, "\n"' \
-            hoe-halostatue.gemspec >> "${GITHUB_OUTPUT}"
+            hoe-halostatue.gemspec >>"${GITHUB_OUTPUT}"
 
-      - uses: ruby/setup-ruby@d354de180d0c9e813cfddfcbdc079945d4be589b # v1.275.0
+      - uses: ruby/setup-ruby@675dd7ba1b06c8786a1480d89c384f5620a42647 # v1.281.0
         with:
           bundler-cache: false
           ruby-version: ruby
@@ -84,3 +84,11 @@ jobs:
         run: |
           git status
           git diff
+
+  publish_docs:
+    needs: release
+    permissions:
+      contents: read
+      pages: write    # Publish documentation
+      id-token: write # Authenticate for gem publishing
+    uses: ./.github/workflows/publish-docs.yml
