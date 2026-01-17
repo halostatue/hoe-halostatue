@@ -1,5 +1,9 @@
 # hoe-halostatue Changelog
 
+## 2.1.2 / 2026-01-17
+
+- Simplified several functions around git execution.
+
 ## 2.1.1 / 2025-06-26
 
 - Actually include strict warnings support files.

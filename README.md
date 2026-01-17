@@ -41,9 +41,9 @@ automated release support.
 ### Improved Metadata URL Parsing
 
 Hoe::Halostatue provides an improved implementation for `Hoe#parse_urls`. The
-expected format is more or less the same, but accepts any left-aligned Markdown
-list (beginning with `-`, `+`, or `*`) and handles lists that wrap lines (such
-as the `changelog` entry at the top of this file).
+expected format is more or less the same, but accepts any left-aligned unordered
+Markdown list (beginning with `-`, `+`, or `*`) and handles lists that wrap
+lines (such as the `changelog` entry at the top of this file).
 
 It is more strict than the default `Hoe#parse_urls` because it only accepts the
 known aliases for the various RubyGems URI meta keys.

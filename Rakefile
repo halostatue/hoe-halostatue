@@ -2,16 +2,23 @@
 
 $LOAD_PATH.unshift "lib"
 
+require "rubygems"
 require "hoe"
+require "rake/clean"
+require "rdoc/task"
 
 Hoe.plugin :halostatue
+Hoe.plugins.delete :debug
+Hoe.plugins.delete :git
+Hoe.plugins.delete :newb
+Hoe.plugins.delete :publish
+Hoe.plugins.delete :signing
+Hoe.plugins.delete :test
 
-Hoe.spec "hoe-halostatue" do
+hoe = Hoe.spec "hoe-halostatue" do
   developer "Austin Ziegler", "halostatue@gmail.com"
 
   self.trusted_release = ENV["rubygems_release_gem"] == "true"
-
-  self.extra_rdoc_files = FileList["*.rdoc"]
 
   license "MIT"
 
@@ -26,3 +33,17 @@ Hoe.spec "hoe-halostatue" do
 
   extra_dev_deps << ["standard", "~> 1.0"]
 end
+
+task :version do
+  require "hoe/halostatue/version"
+  puts Hoe::Halostatue::VERSION
+end
+
+RDoc::Task.new do
+  _1.title = "Hoe::Halostatue -- Opinionated reconfiguration of Hoe"
+  _1.main = "README.md"
+  _1.rdoc_dir = "doc"
+  _1.rdoc_files = hoe.spec.require_paths - ["Manifest.txt"] + hoe.spec.extra_rdoc_files
+  _1.markup = "markdown"
+end
+task docs: :rerdoc

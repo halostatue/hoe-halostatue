@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-# stub: hoe-halostatue 2.1.1 ruby lib
+# stub: hoe-halostatue 2.1.2 ruby lib
 
 Gem::Specification.new do |s|
   s.name = "hoe-halostatue".freeze
-  s.version = "2.1.1".freeze
+  s.version = "2.1.2".freeze
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.metadata = { "bug_tracker_uri" => "https://github.com/halostatue/halostatue-data/issues", "changelog_uri" => "https://github.com/halostatue/halostatue-data/blob/main/CHANGELOG.md", "homepage_uri" => "https://github.com/halostatue/halostatue-data/", "rubygems_mfa_required" => "true", "source_code_uri" => "https://github.com/halostatue/halostatue-data/" } if s.respond_to? :metadata=
@@ -27,5 +27,4 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<hoe-markdown>.freeze, ["~> 1.6".freeze])
   s.add_runtime_dependency(%q<hoe-rubygems>.freeze, ["~> 1.0".freeze])
   s.add_development_dependency(%q<standard>.freeze, ["~> 1.0".freeze])
-  s.add_development_dependency(%q<rdoc>.freeze, [">= 4.0".freeze, "< 7".freeze])
 end

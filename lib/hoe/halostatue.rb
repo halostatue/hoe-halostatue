@@ -3,62 +3,75 @@
 require "shellwords"
 require_relative "halostatue/version"
 
+class Hoe; end # :nodoc:
+
 Hoe.plugin :gemspec2
 Hoe.plugin :markdown
 Hoe.plugin :rubygems
 
-# This module is a Hoe plugin. You can set its options in your Rakefile Hoe spec, like
-# this:
+# This module is a Hoe plugin which applies extremely opinionated reconfiguration to Hoe.
+# You can set its options in your Rakefile Hoe spec, like this:
 #
-#    Hoe.plugin :git
+# ```ruby
+# Hoe.plugin :halostatue
 #
-#    Hoe.spec "myproj" do
-#      self.checklist = nil if ENV["rubygems_release_gem"] == "true"
-#      self.git_release_tag_prefix = "REL_"
-#      self.git_remotes << "myremote"
-#    end
+# Hoe.spec "myproj" do
+#   self.checklist = nil if ENV["rubygems_release_gem"] == "true"
+#   self.git_release_tag_prefix = "REL_"
+#   self.git_remotes << "myremote"
+# end
+# ```
 #
-# === Tasks
+# The `:git` plugin (built into Hoe since Hoe 4.5 or present in the `hoe-git` or
+# `hoe-git2` dependencies) should not be enabled as that implementation differs from what
+# is included here.
 #
-# git:changelog:: Print the current changelog.
-# git:manifest::  Update the manifest with Git's file list.
-# git:tag::       Create and push a tag.
+# ### Tasks
 #
-# === Options
+# - `checklist`: Show the list of checklist questions.
+# - `git:manifest`: Update the manifest with Git's file list.
+# - `git:tag`: Create and push a tag.
 #
-# - +checklist+: An array of reminder questions that should be asked before a release, in
-#   the form, "Did you... [question]?" You can see the defaults by running <tt>rake
-#   checklist</tt>. If the checklist is +nil+ or empty, the checklist will not shown
-#   during release. This is originally from hoe-doofus and called +doofus_checklist+.
+# ### Options
 #
-# - +git_release_tag_prefix+: What do you want at the front of your release tags? The
-#   default is <tt>"v"</tt>.
+# - `checklist`: An array of reminder questions that should be asked before a release, in
+#   the form "Did you... [question]?". The default questions are:
 #
-# - +git_remotes+: Which remotes do you want to push tags, etc. to? The default is
-#   <tt>%w[origin]</tt>
+#   - `Bump the version?`
+#   - `Check everything in?`
+#   - `Review the manifest?`
+#   - `Update the README and docs?`
+#   - `Update the changelog?`
+#   - `Regenerate the gemspec?`
 #
-# - +git_tag_enabled+: Whether a git tag should be created on release. The default is
-#   +true+.
+#   If the checklist is `nil` or empty, or trusted publishing is on, the checklist will
+#   not be shown.
+#
+# - `git_release_tag_prefix`: What do you want at the front of your release tags? The
+#   default is `"v"`.
+#
+# - `git_remotes`: Which remotes do you want to push tags, etc. to? The default is
+#   `%w[origin]`.
+#
+# - `git_tag_enabled`: Whether a git tag should be created on release. The default is
+#   `true`.
 module Hoe::Halostatue
   # Indicates that this release is being run as part of a trusted release workflow.
-  # [default: +false+]
+  # [default: `false`]
   attr_accessor :trusted_release
 
   # An array of reminder questions that should be asked before a release, in the form,
-  # "Did you... [question]?" You can see the defaults by running <tt>rake checklist</tt>.
-  #
-  # If the checklist is +nil+ or empty, the checklist will not shown during release.
   attr_accessor :checklist
 
   # What do you want at the front of your release tags?
-  # [default: <tt>"v"</tt>]
+  # [default: `"v"`]
   attr_accessor :git_release_tag_prefix
 
   # Which remotes do you want to push tags, etc. to?
-  # [default: <tt>%w[origin]</tt>]
+  # [default: `%w[origin]`]
   attr_accessor :git_remotes
 
-  # Should git tags be created on release? [default: +true+]
+  # Should git tags be created on release? [default: `true`]
   attr_accessor :git_tag_enabled
 
   def initialize_halostatue # :nodoc:
@@ -95,10 +108,10 @@ module Hoe::Halostatue
     self.trusted_release = false
   end
 
-  LINKS = /\[(?<name>.+?)\](?:\(.+?\)|\[.+?\])/
+  LINKS = /\[(?<name>.+?)\](?:\(.+?\)|\[.+?\])/ # :nodoc:
 
   def define_halostatue_tasks # :nodoc:
-    desc "Show a reminder for steps I frequently forget"
+    desc "Show a reminder for steps frequently forgotten in a manual release"
     task :checklist do
       if checklist.nil? || checklist.empty?
         puts "Checklist is empty."
@@ -147,12 +160,11 @@ module Hoe::Halostatue
     desc "Update the manifest with Git's file list. Use Hoe's excludes."
     task "git:manifest" do
       with_config do |config, _|
-        files = __run_git("ls-files").split($/)
-        files.reject! { |f| f =~ config["exclude"] }
+        files = __run_git("ls-files")
+          .split($/)
+          .grep_v(config["exclude"])
 
-        File.open "Manifest.txt", "w" do |f|
-          f.puts files.sort.join("\n")
-        end
+        File.write "Manifest.txt", files.sort.join("\n") + "\n"
       end
     end
 
@@ -178,6 +190,8 @@ module Hoe::Halostatue
     task release_to: "git:tag"
   end
 
+  private
+
   def __git(command, *params)
     "git #{command.shellescape} #{params.compact.shelljoin}"
   end
@@ -193,19 +207,10 @@ module Hoe::Halostatue
   def git_tag_and_push tag
     msg = "Tagging #{tag}."
 
-    if git_svn?
-      sh __git("svn", "tag", tag, "-m", msg)
-    else
-      flags =
-        if __run_git("config", "--get", "user.signingkey").empty?
-          nil
-        else
-          "-s"
-        end
+    flags = "-s" unless __run_git("config", "--get", "user.signingkey").empty?
 
-      sh __git("tag", flags, "-f", tag, "-m", msg)
-      git_remotes.each { |remote| sh __git("push", "-f", remote, "tag", tag) }
-    end
+    sh __git("tag", flags, "-f", tag, "-m", msg)
+    git_remotes.each { |remote| sh __git("push", "-f", remote, "tag", tag) }
   end
 
   # This replaces Hoe#parse_urls with something that works better for Markdown.
