@@ -2,7 +2,11 @@
 
 - SPDX-License-Identifier: [MIT][mit]
 
-- Copyright 2022-2025 Austin Ziegler. Portions copyright 2009 John Barnette.
+- Copyright 2022-2026 Austin Ziegler.
+
+  - Portions copyright 2009 John Barnette.
+  - Portions copyright 2011 James Tucker.
+  - Portions copyright 2020–2025 Make Dalessio.
 
 The software in this repository is made available under the MIT license.
 
