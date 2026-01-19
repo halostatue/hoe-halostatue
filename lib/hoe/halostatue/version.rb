@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Hoe::Halostatue
-  VERSION = "2.1.2" # :nodoc:
+  VERSION = "3.0.0" # :nodoc:
 end

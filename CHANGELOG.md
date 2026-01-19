@@ -1,5 +1,20 @@
 # hoe-halostatue Changelog
 
+## 3.0.0 / 2026-01-19
+
+- Replaced `hoe-gemspec2` with an internal implementation that improves support
+  for [reproducible builds][rb]. The included plugin `hoe-rubygems` was also
+  removed as it's duplicative of this work.
+
+- Replaced `hoe-markdown` with an internal implementation that uses
+  [`kramdown`][kd] for AST-aware Markdown processing when converting GitHub
+  references to links. The new implementation correctly handles edge cases like
+  email addresses, Mastodon handles, code blocks/spans, existing links, and
+  malformed patterns. This was written with the assistance of Kiro.
+
+- Internal restructuring was performed to improve readability and optimize some
+  flows.
+
 ## 2.1.2 / 2026-01-17
 
 - Simplified several functions around git execution.
@@ -40,5 +55,7 @@
 
 - Birthday!
 
+[kd]: https://github.com/gettalong/kramdown
+[rb]: https://reproducible-builds.org/
 [rsw]: https://github.com/rails/rails/blob/66732971111a62e5940268e1daf7d413c72a234f/tools/strict_warnings.rb
 [trusted]: https://github.com/rubygems/release-gem

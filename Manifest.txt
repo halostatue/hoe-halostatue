@@ -8,6 +8,13 @@ README.md
 Rakefile
 SECURITY.md
 lib/hoe/halostatue.rb
+lib/hoe/halostatue/checklist.rb
+lib/hoe/halostatue/gemspec.rb
+lib/hoe/halostatue/git.rb
+lib/hoe/halostatue/markdown.rb
+lib/hoe/halostatue/markdown/linkify.rb
 lib/hoe/halostatue/strict_warnings.rb
 lib/hoe/halostatue/version.rb
 licences/dco.txt
+test/hoe/halostatue/markdown/test_linkify.rb
+test/minitest_helper.rb

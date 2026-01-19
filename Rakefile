@@ -6,6 +6,8 @@ require "rubygems"
 require "hoe"
 require "rake/clean"
 require "rdoc/task"
+require "minitest"
+require "minitest/test_task"
 
 Hoe.plugin :halostatue
 Hoe.plugins.delete :debug
@@ -23,17 +25,50 @@ hoe = Hoe.spec "hoe-halostatue" do
   license "MIT"
 
   spec_extras[:metadata] = ->(val) {
-    val.merge!({"rubygems_mfa_required" => "true"})
+    val["rubygems_mfa_required"] = "true"
   }
 
-  extra_deps << ["hoe", ">= 3.0", "< 5"]
-  extra_deps << ["hoe-gemspec2", "~> 1.4"]
-  extra_deps << ["hoe-markdown", "~> 1.6"]
-  extra_deps << ["hoe-rubygems", "~> 1.0"]
+  extra_deps << ["hoe", "~> 4.0"]
+  extra_deps << ["kramdown", "~> 2.3"]
+  extra_deps << ["kramdown-parser-gfm", "~> 1.1"]
 
-  extra_dev_deps << ["standard", "~> 1.0"]
-  extra_dev_deps << ["rdoc", ">= 5.0", "< 8"]
+  extra_dev_deps << ["minitest", "~> 6.0"]
+  extra_dev_deps << ["minitest-autotest", "~> 1.0"]
+  extra_dev_deps << ["minitest-focus", "~> 1.1"]
+  extra_dev_deps << ["rake", ">= 10.0", "< 14"]
+  extra_dev_deps << ["rdoc", ">= 6.0", "< 8"]
+  extra_dev_deps << ["simplecov", "~> 0.22"]
+  extra_dev_deps << ["simplecov-lcov", "~> 0.8"]
+  extra_dev_deps << ["standard", "~> 1.50"]
 end
+
+Minitest::TestTask.create :test
+Minitest::TestTask.create :coverage do |t|
+  formatters = <<-RUBY.split($/).join(" ")
+    SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::HTMLFormatter,
+      SimpleCov::Formatter::LcovFormatter,
+      SimpleCov::Formatter::SimpleFormatter
+    ])
+  RUBY
+  t.test_prelude = <<-RUBY.split($/).join("; ")
+  require "simplecov"
+  require "simplecov-lcov"
+
+  SimpleCov::Formatter::LcovFormatter.config do |config|
+    config.report_with_single_file = true
+    config.lcov_file_name = "lcov.info"
+  end
+
+  SimpleCov.start "test_frameworks" do
+    enable_coverage :branch
+    primary_coverage :branch
+    formatter #{formatters}
+  end
+  RUBY
+end
+
+task default: :test
 
 task :version do
   require "hoe/halostatue/version"
