@@ -42,7 +42,7 @@ module Hoe::Halostatue::Git
         tag = ENV["TAG"]
         ver = ENV["VERSION"] || version
         pre = ENV["PRERELEASE"] || ENV["PRE"]
-        ver += ".#{pre}" if pre && !ver.ends_with?(pre)
+        ver += ".#{pre}" if pre && !ver.end_with?(pre)
         tag ||= "#{git_release_tag_prefix}#{ver}"
 
         git_tag_and_push tag
