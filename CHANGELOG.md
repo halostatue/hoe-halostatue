@@ -1,5 +1,9 @@
 # hoe-halostatue Changelog
 
+## 3.0.1 / 2026-01-22
+
+- Fix an error in pre-release value checking.
+
 ## 3.0.0 / 2026-01-19
 
 - Replaced `hoe-gemspec2` with an internal implementation that improves support
