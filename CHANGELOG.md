@@ -1,23 +1,28 @@
 # hoe-halostatue Changelog
 
+## 3.0.2 / 2026-09-20
+
+- Fix an error in YAML safe loading with `Date`, which needs `require 'date'`.
+- Various local and CI development tooling updates.
+
 ## 3.0.1 / 2026-01-22
 
 - Fix an error in pre-release value checking.
 
 ## 3.0.0 / 2026-01-19
 
-- Replaced `hoe-gemspec2` with an internal implementation that improves support
-  for [reproducible builds][rb]. The included plugin `hoe-rubygems` was also
-  removed as it's duplicative of this work.
+- Replaced `hoe-gemspec2` with an internal implementation that improves
+  support for [reproducible builds][rb]. The included plugin `hoe-rubygems`
+  was also removed as it's duplicative of this work.
 
 - Replaced `hoe-markdown` with an internal implementation that uses
   [`kramdown`][kd] for AST-aware Markdown processing when converting GitHub
-  references to links. The new implementation correctly handles edge cases like
-  email addresses, Mastodon handles, code blocks/spans, existing links, and
-  malformed patterns. This was written with the assistance of Kiro.
+  references to links. The new implementation correctly handles edge cases
+  like email addresses, Mastodon handles, code blocks/spans, existing links,
+  and malformed patterns. This was written with the assistance of Kiro.
 
-- Internal restructuring was performed to improve readability and optimize some
-  flows.
+- Internal restructuring was performed to improve readability and optimize
+  some flows.
 
 ## 2.1.2 / 2026-01-17
 
@@ -50,8 +55,8 @@
   URLs work.
 
 - Added a `trusted_release` mode that skips the need for a `VERSION` specifier
-  on the release task and ensures that features which impede automated releases
-  are disabled.
+  on the release task and ensures that features which impede automated
+  releases are disabled.
 
 - Enabled trusted publishing for this repo.
 

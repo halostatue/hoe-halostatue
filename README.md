@@ -1,10 +1,15 @@
 # Hoe::Halostatue Meta-Plugin
 
-- home :: <https://github.com/halostatue/halostatue-data/>
-- issues :: <https://github.com/halostatue/halostatue-data/issues>
-- code :: <https://github.com/halostatue/halostatue-data/>
+[![RubyGems Version](https://img.shields.io/gem/v/hoe-halostatue?style=for-the-badge "Version")](https://rubygems.org/gems/hoe-halostatue)
+[![Coveralls](https://img.shields.io/coverallsCoverage/github/halostatue/hoe-halostatue?style=for-the-badge)](https://coveralls.io/github/halostatue/hoe-halostatue?branch=main)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/halostatue/hoe-halostatue/ci.yml?style=for-the-badge "Build Status")](https://github.com/halostatue/hoe-halostatue/actions/workflows/ci.yml)
+[![MIT](https://img.shields.io/badge/licence-MIT-blue?style=for-the-badge "MIT")](https://github.com/halostatue/hoe-halostatue/blob/main/LICENCE.md)
+
+- home :: <https://github.com/halostatue/hoe-halostatue/>
+- issues :: <https://github.com/halostatue/hoe-halostatue/issues>
+- code :: <https://github.com/halostatue/hoe-halostatue/>
 - changelog ::
-  <https://github.com/halostatue/halostatue-data/blob/main/CHANGELOG.md>
+  <https://github.com/halostatue/hoe-halostatue/blob/main/CHANGELOG.md>
 
 ## Description
 
@@ -35,8 +40,8 @@ end
 - Improved Markdown support through functionality derived from
   [`hoe-markdown`][hmd].
 
-- Improved manual release support by adding a display checklist as a reminder of
-  tasks frequently forgotten, inspired by [`hoe-doofus`][hd].
+- Improved manual release support by adding a display checklist as a reminder
+  of tasks frequently forgotten, inspired by [`hoe-doofus`][hd].
 
 - Improved support of automated releases and reproducible builds by
   incorporating modified versions of [`hoe-git2`][hg2] and
@@ -45,12 +50,12 @@ end
 ### Improved Metadata URL Parsing
 
 Hoe::Halostatue provides an improved implementation for `Hoe#parse_urls`. The
-expected format is more or less the same, but accepts any left-aligned unordered
-Markdown list (beginning with `-`, `+`, or `*`) and handles lists that wrap
-lines (such as the `changelog` entry at the top of this file).
+expected format is more or less the same, but accepts any left-aligned
+unordered Markdown list (beginning with `-`, `+`, or `*`) and handles lists
+that wrap lines (such as the `changelog` entry at the top of this file).
 
-It is more strict than the default `Hoe#parse_urls` because it only accepts the
-known aliases for the various RubyGems URI meta keys.
+It is more strict than the default `Hoe#parse_urls` because it only accepts
+the known aliases for the various RubyGems URI meta keys.
 
 | RubyGems URI Meta Key | Alias                                     |
 | --------------------- | ----------------------------------------- |
@@ -71,8 +76,8 @@ Hoe was originally written before Markdown support was pervasive in software
 forges and before RubyDocs supported Markdown rendering. It assumes that your
 README is `README.txt` and that your changelog file is `History.txt`.
 
-As a maintainer, you need to opt out of this — unless you use `hoe-markdown` or
-Hoe::Halostatue, which allows you to remove this modification from your
+As a maintainer, you need to opt out of this — unless you use `hoe-markdown`
+or Hoe::Halostatue, which allows you to remove this modification from your
 `Rakefile`:
 
 ```ruby
@@ -101,8 +106,8 @@ over `HISTORY`, and exact matches are preferred over case-insensitive matches.
 #### Automatically Link to GitHub
 
 A rake task `markdown:linkify` is created that automatically converts GitHub
-references to hyperlinks in your Markdown files and bare hyperlinks to readable
-links.
+references to hyperlinks in your Markdown files and bare hyperlinks to
+readable links.
 
 | Input                                           | Output                                                            |
 | ----------------------------------------------- | ----------------------------------------------------------------- |
@@ -132,8 +137,8 @@ Query parameters and fragments are preserved in the link URL:
 
 > [!NOTE]
 >
-> If `spec.metadata["bug_tracker_uri"]` points to a GitHub repo, link labels to
-> that repo are shortened:
+> If `spec.metadata["bug_tracker_uri"]` points to a GitHub repo, link labels
+> to that repo are shortened:
 >
 > | Input                                                       | Output Link Text           |
 > | ----------------------------------------------------------- | -------------------------- |
@@ -207,8 +212,8 @@ All Markdown files in your `Manifest.txt` will be processed by
 
   This will exclude any link found in files in the `licenses/` directory.
 
-- `spec.markdown_linkify_style` (default `:reference`): The style for producing
-  links. Valid values are:
+- `spec.markdown_linkify_style` (default `:reference`): The style for
+  producing links. Valid values are:
 
   - `:reference`, which will produce named reference links (e.g.,
     `[#123][gh-issue-123]`)
@@ -220,10 +225,10 @@ All Markdown files in your `Manifest.txt` will be processed by
   moved, but new definitions will be appended to the end of the file.
 
 - `spec.markdown_linkify_uri_prefixes` (default `nil`): Controls whether
-  shortened URIs for the current repository have prefixes added to them. This is
-  either falsy (no prefixes added), `true` default prefixes are added, or a map
-  with one or more type (`issue`, `pull`, `discussion`) and the prefix to be
-  applied. The default prefixes (when `true`) are
+  shortened URIs for the current repository have prefixes added to them. This
+  is either falsy (no prefixes added), `true` default prefixes are added, or a
+  map with one or more type (`issue`, `pull`, `discussion`) and the prefix to
+  be applied. The default prefixes (when `true`) are
   `{issue: 'issue', pull: 'pull', discussion: 'discussion'}`.
 
   Examples (assuming `true`):
@@ -236,11 +241,11 @@ All Markdown files in your `Manifest.txt` will be processed by
 
 ### Automated Release Support
 
-Certain features offered by Hoe plugins are useful for manual releases but work
-against automated releases (see [trusted publishing][tp]).
+Certain features offered by Hoe plugins are useful for manual releases but
+work against automated releases (see [trusted publishing][tp]).
 
-- The checklist feature will be disabled when trusted publishing is turned on or
-  the checklist is unset or empty.
+- The checklist feature will be disabled when trusted publishing is turned on
+  or the checklist is unset or empty.
 
 - Automatic release tagging is enabled by default, but may be disabled when
   using release triggers like [release-please][rp].
@@ -260,16 +265,16 @@ end
 
 ### Release Checklist (from `hoe-doofus`)
 
-The release checklist feature has been incorporated from `hoe-doofus`, described
-as:
+The release checklist feature has been incorporated from `hoe-doofus`,
+described as:
 
 > A Hoe plugin that helps me (and you, maybe?) keep from messing up gem
 > releases. It shows a configurable checklist when `rake release` is run, and
 > provides a chance to abort if anything's been forgotten.
 
-The current checklist can be seen by running `rake checklist` and the checklist
-may be set by using `self.checklist << "new item"` in your spec. If the
-checklist is `nil` or empty, the checklist prompt will not be displayed.
+The current checklist can be seen by running `rake checklist` and the
+checklist may be set by using `self.checklist << "new item"` in your spec. If
+the checklist is `nil` or empty, the checklist prompt will not be displayed.
 
 ```ruby
 Hoe.plugin :halostatue
@@ -288,8 +293,8 @@ workflow.
 
 ### Git Integration Tasks (from `hoe-git2`)
 
-If Hoe::Halostatue cannot see that it is in a `.git` repository, these features
-will be deactivated.
+If Hoe::Halostatue cannot see that it is in a `.git` repository, these
+features will be deactivated.
 
 #### Generating the Manifest
 
@@ -304,15 +309,15 @@ files present. After the release is published, a Git tag will be created and
 pushed to your repo remotes. Both `$PRERELEASE` and `$PRE` tags are supported,
 with `$PRERELEASE` taking precedence over `$PRE`, just as with Hoe itself.
 
-In the following example with no other configuration, a `v1.0.0.beta.1` tag will
-be created and pushed to the `origin` remote.
+In the following example with no other configuration, a `v1.0.0.beta.1` tag
+will be created and pushed to the `origin` remote.
 
 ```console
 $ rake git:tag VERSION=1.0.0 PRERELEASE=beta.1
 ```
 
-The tag prefix can be set with `self.git_release_tag_prefix`, which defaults to
-`v`.
+The tag prefix can be set with `self.git_release_tag_prefix`, which defaults
+to `v`.
 
 The created tag can be pushed to different remotes with `self.git_remotes`,
 which defaults to `["origin"]`.
@@ -327,50 +332,50 @@ $ rake release VERSION=1.0.0 PRERELEASE=beta.1
 
 Support for generating the CHANGELOG from the git commit messages has not been
 incorporated into Hoe::Halostatue. There are better tools for producing a
-changelog automatically (such as [changie][cg] or [cocogitto][cc]), and I prefer
-to manage my changelogs by hand.
+changelog automatically (such as [changie][cg] or [cocogitto][cc]), and I
+prefer to manage my changelogs by hand.
 
 Listing the applied tags is better done with `git tag`.
 
 ### Regenerating the Gem Spec (from `hoe-gemspec2`)
 
 The ability to regenerate the gem specification using `rake gemspec` has been
-added from `hoe-gemspec2`. This variant adds support for reproducible builds to
-the spec generation.
+added from `hoe-gemspec2`. This variant adds support for reproducible builds
+to the spec generation.
 
-Note that `rake gemspec:full` has been removed; there is no support for RubyGems
-`signing_key` and `cert_chain`.
+Note that `rake gemspec:full` has been removed; there is no support for
+RubyGems `signing_key` and `cert_chain`.
 
 #### Reproducible Build Support
 
 > [!NOTE]
 >
 > Documentation on reproducible builds in RubyGems is fairly thin, but this
-> amounts to having a fixed date set for the specification `date`, which is also
-> used to ensure that all files have the same date.
+> amounts to having a fixed date set for the specification `date`, which is
+> also used to ensure that all files have the same date.
 
 Reproducible builds are primarily performed by setting the value of
-`$SOURCE_DATE_EPOCH`. If unset, RubyGems will use a fixed date (1980-01-02), but
-only when building the gem.
+`$SOURCE_DATE_EPOCH`. If unset, RubyGems will use a fixed date (1980-01-02),
+but only when building the gem.
 
-The Hoe::Halostatue implementation of the `gemspec` task will set the generated
-specification date and `$SOURCE_DATE_EPOCH` for proper handling by the RubyGems
-build process.
+The Hoe::Halostatue implementation of the `gemspec` task will set the
+generated specification date and `$SOURCE_DATE_EPOCH` for proper handling by
+the RubyGems build process.
 
 > [!IMPORTANT]
 >
 > Most projects will use the default reproducible builds behaviour and should
-> not have `$SOURCE_DATE_EPOCH` set when publishing releases (either manually or
-> in CI environments).
+> not have `$SOURCE_DATE_EPOCH` set when publishing releases (either manually
+> or in CI environments).
 
 For other cases, `$SOURCE_DATE_EPOCH` is used if it is set, or behaviour is
 controlled by the `spec.reproducible_gemspec` option.
 
-- `:default` / `true`: uses the default RubyGems behaviour, setting the date to
-  `1980-01-02`
+- `:default` / `true`: uses the default RubyGems behaviour, setting the date
+  to `1980-01-02`
 
-- `:current`: uses the date in the current gem `gemspec` file, or falls back to
-  the default RubyGems behaviour
+- `:current`: uses the date in the current gem `gemspec` file, or falls back
+  to the default RubyGems behaviour
 
 - `false`: disables reproducible builds as much as possible
 
@@ -383,13 +388,13 @@ The default `spec.reproducible_gemspec` value is `:default`.
 
 > [!IMPORTANT]
 >
-> Trusted releases should only be enabled when using a [trusted publishing][tp]
-> workflow. It is strongly recommended that all gem releases be performed with
-> such a workflow.
+> Trusted releases should only be enabled when using a
+> [trusted publishing][tp] workflow. It is strongly recommended that all gem
+> releases be performed with such a workflow.
 
-If `spec.trusted_release` is set to `true` changes will be made to the `release`
-workflow. It will bypass certain manual release protections offered by Hoe and
-Hoe::Halostatue:
+If `spec.trusted_release` is set to `true` changes will be made to the
+`release` workflow. It will bypass certain manual release protections offered
+by Hoe and Hoe::Halostatue:
 
 - The version discovered by Hoe will be trusted as correct, removing the need
   for specifying the version.
@@ -398,9 +403,9 @@ Hoe::Halostatue:
 
 ### Strict Deprecation Warnings
 
-Deprecation warnings signal code that will break in future Ruby or gem versions.
-Making warnings strict during tests catches these issues early, before they
-reach production or complicate upgrades.
+Deprecation warnings signal code that will break in future Ruby or gem
+versions. Making warnings strict during tests catches these issues early,
+before they reach production or complicate upgrades.
 
 Warnings can be made strict (an exception will be thrown) for tests by adding
 the following to your test or spec helper file (`test/minitest_helper.rb` or
