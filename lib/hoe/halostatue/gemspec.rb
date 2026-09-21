@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "date"
+
 module Hoe::Halostatue::Gemspec
   # Whether a fixed date should be used for reproducible gemspec values. This is ignored
   # if `$SOURCE_DATE_EPOCH` is set. Acceptable values are:
@@ -16,8 +18,8 @@ module Hoe::Halostatue::Gemspec
 
   LINKS = /\[(?<name>.+?)\](?:\(.+?\)|\[.+?\])/ # :nodoc:
   PERMITTED_CLASSES = [ # :nodoc:
-    Symbol, Time, Date, Gem::Dependency, Gem::Platform, Gem::Requirement,
-    Gem::Specification, Gem::Version, Gem::Version::Requirement
+    ::Symbol, ::Time, ::Date, ::Gem::Dependency, ::Gem::Platform, ::Gem::Requirement,
+    ::Gem::Specification, ::Gem::Version, ::Gem::Version::Requirement
   ].freeze
   PERMITTED_SYMBOLS = %i[development runtime].freeze # :nodoc:
 
