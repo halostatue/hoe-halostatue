@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -37,7 +37,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: '3.4'
           rubygems: latest
@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -73,7 +73,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: '3.4'
           rubygems: latest
@@ -110,7 +110,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -125,7 +125,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           rubygems: latest
@@ -157,7 +157,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -172,7 +172,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           rubygems: latest
@@ -206,7 +206,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -221,7 +221,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           rubygems: latest
@@ -251,7 +251,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -267,7 +267,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           rubygems: latest
@@ -298,7 +298,7 @@ jobs:
 
     steps:
       - name: Harden the runner
-        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
         with:
           disable-sudo: true
           egress-policy: block
@@ -313,7 +313,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: ruby/setup-ruby@bec3f19a76460dbe12f60def7d1a77585f07516c # v1.322.0
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f # v1.335.0
         with:
           ruby-version: ${{ matrix.ruby }}
           rubygems: latest
